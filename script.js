@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     postcode: "Poskod",
     city: "Bandar",
     state: "Negeri",
-    itemDetails: "Nama Barangan & Saiz",
     quantity: "Jumlah Kuantiti",
     orderRef: "No. Resit / Rujukan",
     notes: "Nota Tambahan",
