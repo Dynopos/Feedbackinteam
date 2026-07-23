@@ -44,6 +44,24 @@ barangan/merchandise konsert INTEAM. Data borang dihantar terus ke Google Sheet.
 > buat **Deploy → Manage deployments → Edit (pensel) → New version → Deploy**
 > supaya perubahan berkuatkuasa pada URL yang sama.
 
+### Setup Guna Telefon Sahaja (tiada laptop)
+
+App mobile Google Sheets tiada menu **Extensions**, jadi cara di atas tak
+boleh diikuti terus dalam app tu. Guna cara ini sebagai gantinya:
+
+1. Buka **Chrome** di telefon, taip terus **script.google.com** di address
+   bar (bukan sheets.google.com — domain ini tidak auto-redirect ke app).
+2. Log masuk dengan akaun Google anda, tap **+ New project**.
+3. Padam kod default, salin-tampal kandungan `apps-script/Code.gs`.
+4. Buka app Sheets, buka spreadsheet **"INTEAM Postage Submissions"**, tap
+   **Share → Copy link**. Salin ID dari URL tersebut (bahagian antara
+   `/d/` dan `/edit`), contoh:
+   `https://docs.google.com/spreadsheets/d/`**`1AbCxyz...`**`/edit`
+5. Dalam editor Apps Script, isikan ID tersebut ke pemboleh ubah
+   `SPREADSHEET_ID` di baris atas kod.
+6. Simpan, kemudian teruskan dari langkah 5 (Deploy → New deployment) di
+   atas seperti biasa.
+
 ## Jalankan Secara Tempatan
 
 Fail-fail ini adalah static HTML/CSS/JS — tiada proses build diperlukan.

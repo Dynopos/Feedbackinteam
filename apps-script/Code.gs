@@ -1,6 +1,11 @@
 // Google Apps Script — terima data borang dan simpan dalam Google Sheet.
 // Cara pasang: lihat README.md di root repo ini.
 
+// Kalau projek script ni "standalone" (dibuat terus di script.google.com,
+// bukan melalui Extensions dalam Sheets), isikan Spreadsheet ID di bawah.
+// Kosongkan ("") kalau script ni dibuat melalui Extensions di dalam Sheets.
+const SPREADSHEET_ID = "";
+
 const SHEET_NAME = "Submissions";
 
 const COLUMNS = [
@@ -32,7 +37,9 @@ function doPost(e) {
 }
 
 function getOrCreateSheet() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = SPREADSHEET_ID
+    ? SpreadsheetApp.openById(SPREADSHEET_ID)
+    : SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName(SHEET_NAME);
 
   if (!sheet) {
