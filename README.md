@@ -2,29 +2,29 @@
 
 Landing page + borang untuk peminat isi alamat dan butiran penghantaran
 barangan/merchandise konsert INTEAM. Selepas borang diisi, maklumat terus
-dihantar sebagai mesej WhatsApp ke nombor yang diset.
+dihantar sebagai emel ke alamat yang diset.
 
 ## Struktur
 
 - `index.html` — landing page
 - `form.html` — borang penghantaran
 - `style.css` — styling
-- `script.js` — logik borang, susun mesej & buka WhatsApp
-- `config.js` — nombor WhatsApp yang menerima mesej
+- `script.js` — logik borang, susun mesej & buka app emel
+- `config.js` — alamat emel yang menerima mesej
 
-## Setup Nombor WhatsApp
+## Setup Alamat Emel
 
-Buka `config.js` dan tukar nilai `WHATSAPP_NUMBER` kepada nombor yang nak
-terima mesej, dalam format antarabangsa (kod negara, tanpa "+" atau "0" di
-depan):
+Buka `config.js` dan tukar nilai `NOTIFY_EMAIL` kepada alamat emel yang nak
+terima borang:
 
 ```js
-const WHATSAPP_NUMBER = "60182889932";
+const NOTIFY_EMAIL = "Feedbackinteam@dynopos.my";
 ```
 
-Bila borang dihantar, pengguna akan dibawa terus ke WhatsApp (app atau
-web.whatsapp.com) dengan mesej yang sudah diisi automatik berdasarkan
-jawapan dalam borang — mereka hanya perlu tekan **Hantar** dalam WhatsApp.
+Bila borang dihantar, pengguna akan dibawa ke app emel (Gmail, Mail, dll.)
+dengan penerima, tajuk, dan kandungan mesej sudah diisi automatik
+berdasarkan jawapan dalam borang — mereka hanya perlu tekan **Hantar**
+dalam app emel tersebut.
 
 ## Jalankan Secara Tempatan
 

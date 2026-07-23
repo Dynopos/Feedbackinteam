@@ -26,14 +26,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const data = Object.fromEntries(new FormData(form).entries());
 
-    const lines = ["*Borang Penghantaran Barangan - Konsert INTEAM*", ""];
+    const lines = [];
     Object.entries(FIELD_LABELS).forEach(([key, label]) => {
       if (data[key]) lines.push(label + ": " + data[key]);
     });
 
-    const message = encodeURIComponent(lines.join("\n"));
-    const waUrl = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + message;
+    const subject = encodeURIComponent("Borang Penghantaran Barangan - Konsert INTEAM - " + (data.fullName || ""));
+    const body = encodeURIComponent(lines.join("\n"));
+    const mailtoUrl = "mailto:" + NOTIFY_EMAIL + "?subject=" + subject + "&body=" + body;
 
-    window.location.href = waUrl;
+    window.location.href = mailtoUrl;
   });
 });
