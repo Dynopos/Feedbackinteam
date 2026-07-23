@@ -62,6 +62,24 @@ boleh diikuti terus dalam app tu. Guna cara ini sebagai gantinya:
 6. Simpan, kemudian teruskan dari langkah 5 (Deploy → New deployment) di
    atas seperti biasa.
 
+## Email Notification
+
+Setiap kali borang dihantar, satu emel notification akan dihantar ke alamat
+yang diset dalam `NOTIFY_EMAIL` di `apps-script/Code.gs` (kini diset ke
+`borhandynopos@gmail.com`), mengandungi semua butiran submission tersebut.
+
+Kalau `Code.gs` di dalam projek Apps Script anda dah lama (sebelum feature
+ni ditambah), kemaskan kod tu:
+
+1. Buka semula editor Apps Script anda (`script.google.com` → buka projek).
+2. Padam kod lama, salin-tampal kandungan terkini `apps-script/Code.gs`
+   dari repo ini.
+3. Simpan, kemudian **Deploy → Manage deployments → (klik pensel/edit
+   pada deployment sedia ada) → Version: New version → Deploy**.
+   (Guna URL Web App yang sama — tak perlu tukar `config.js`.)
+4. Kali pertama, Apps Script akan minta authorize permission tambahan
+   untuk hantar emel (`MailApp`) — benarkan.
+
 ## Jalankan Secara Tempatan
 
 Fail-fail ini adalah static HTML/CSS/JS — tiada proses build diperlukan.

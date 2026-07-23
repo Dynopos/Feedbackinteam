@@ -8,6 +8,8 @@ const SPREADSHEET_ID = "";
 
 const SHEET_NAME = "Submissions";
 
+const NOTIFY_EMAIL = "borhandynopos@gmail.com";
+
 const COLUMNS = [
   "submittedAt",
   "fullName",
@@ -31,9 +33,21 @@ function doPost(e) {
   const row = COLUMNS.map((key) => data[key] || "");
   sheet.appendRow(row);
 
+  notifyNewSubmission(data);
+
   return ContentService
     .createTextOutput(JSON.stringify({ status: "ok" }))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+function notifyNewSubmission(data) {
+  const subject = "Submission Baharu — " + (data.fullName || "Tanpa Nama");
+
+  const body = COLUMNS
+    .map((key) => key + ": " + (data[key] || "-"))
+    .join("\n");
+
+  MailApp.sendEmail(NOTIFY_EMAIL, subject, body);
 }
 
 function getOrCreateSheet() {
