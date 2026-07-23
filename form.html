@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Borang Penghantaran Barangan — Konsert INTEAM</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="page-header">
+    <div class="page-header-inner">
+      <a href="index.html" class="back-link">&larr; Kembali</a>
+      <h1>Borang Penghantaran Barangan</h1>
+      <p class="tagline">Konsert INTEAM — sila isi maklumat dengan lengkap dan tepat.</p>
+    </div>
+  </header>
+
+  <main class="container form-container">
+    <form id="postage-form" novalidate>
+
+      <fieldset>
+        <legend>Maklumat Diri</legend>
+
+        <label for="fullName">Nama Penuh <span class="required">*</span></label>
+        <input type="text" id="fullName" name="fullName" required autocomplete="name">
+
+        <label for="phone">No. Telefon <span class="required">*</span></label>
+        <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="012-3456789">
+
+        <label for="email">Emel</label>
+        <input type="email" id="email" name="email" autocomplete="email" placeholder="nama@emel.com">
+      </fieldset>
+
+      <fieldset>
+        <legend>Alamat Penghantaran</legend>
+
+        <label for="addressLine1">Alamat (Baris 1) <span class="required">*</span></label>
+        <input type="text" id="addressLine1" name="addressLine1" required autocomplete="address-line1">
+
+        <label for="addressLine2">Alamat (Baris 2)</label>
+        <input type="text" id="addressLine2" name="addressLine2" autocomplete="address-line2">
+
+        <div class="row">
+          <div class="col">
+            <label for="postcode">Poskod <span class="required">*</span></label>
+            <input type="text" id="postcode" name="postcode" required inputmode="numeric" autocomplete="postal-code">
+          </div>
+          <div class="col">
+            <label for="city">Bandar <span class="required">*</span></label>
+            <input type="text" id="city" name="city" required autocomplete="address-level2">
+          </div>
+        </div>
+
+        <label for="state">Negeri <span class="required">*</span></label>
+        <select id="state" name="state" required autocomplete="address-level1">
+          <option value="" disabled selected>Pilih negeri</option>
+          <option>Johor</option>
+          <option>Kedah</option>
+          <option>Kelantan</option>
+          <option>Melaka</option>
+          <option>Negeri Sembilan</option>
+          <option>Pahang</option>
+          <option>Perak</option>
+          <option>Perlis</option>
+          <option>Pulau Pinang</option>
+          <option>Sabah</option>
+          <option>Sarawak</option>
+          <option>Selangor</option>
+          <option>Terengganu</option>
+          <option>W.P. Kuala Lumpur</option>
+          <option>W.P. Labuan</option>
+          <option>W.P. Putrajaya</option>
+        </select>
+      </fieldset>
+
+      <fieldset>
+        <legend>Butiran Barangan</legend>
+
+        <label for="itemDetails">Nama Barangan &amp; Saiz <span class="required">*</span></label>
+        <textarea id="itemDetails" name="itemDetails" rows="3" required
+          placeholder="Cth: T-Shirt INTEAM (Saiz L) x1, Poster A3 x2"></textarea>
+
+        <label for="quantity">Jumlah Kuantiti <span class="required">*</span></label>
+        <input type="number" id="quantity" name="quantity" min="1" step="1" required>
+
+        <label for="orderRef">No. Resit / Rujukan Pembelian</label>
+        <input type="text" id="orderRef" name="orderRef" placeholder="Cth: ORD-00123">
+      </fieldset>
+
+      <fieldset>
+        <legend>Maklumat Tambahan</legend>
+        <label for="notes">Nota Tambahan</label>
+        <textarea id="notes" name="notes" rows="3" placeholder="Sebarang arahan/nota khas untuk penghantaran"></textarea>
+      </fieldset>
+
+      <div id="form-message" class="form-message" role="status" aria-live="polite"></div>
+
+      <button type="submit" class="btn btn-primary" id="submit-btn">Hantar Maklumat</button>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Konsert INTEAM. Borang ini digunakan semata-mata untuk tujuan penghantaran barangan/merchandise.</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
