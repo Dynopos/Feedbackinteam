@@ -2,10 +2,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("postage-form");
   if (!form) return;
 
-  const submitBtn = document.getElementById("submit-btn");
-  const messageEl = document.getElementById("form-message");
+  const FIELD_LABELS = {
+    fullName: "Nama Penuh",
+    phone: "No. Telefon",
+    email: "Emel",
+    addressLine1: "Alamat (Baris 1)",
+    addressLine2: "Alamat (Baris 2)",
+    postcode: "Poskod",
+    city: "Bandar",
+    state: "Negeri",
+    itemDetails: "Nama Barangan & Saiz",
+    quantity: "Jumlah Kuantiti",
+    orderRef: "No. Resit / Rujukan",
+    notes: "Nota Tambahan",
+  };
 
-  form.addEventListener("submit", async (e) => {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
 
     if (!form.checkValidity()) {
@@ -13,38 +25,16 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (!GOOGLE_SHEET_ENDPOINT || GOOGLE_SHEET_ENDPOINT.includes("PASTE_YOUR")) {
-      showMessage("Borang belum disambungkan ke Google Sheet. Sila lengkapkan config.js.", "error");
-      return;
-    }
-
     const data = Object.fromEntries(new FormData(form).entries());
-    data.submittedAt = new Date().toISOString();
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Menghantar...";
-    showMessage("", "");
+    const lines = ["*Borang Penghantaran Barangan - Konsert INTEAM*", ""];
+    Object.entries(FIELD_LABELS).forEach(([key, label]) => {
+      if (data[key]) lines.push(label + ": " + data[key]);
+    });
 
-    try {
-      await fetch(GOOGLE_SHEET_ENDPOINT, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(data),
-      });
+    const message = encodeURIComponent(lines.join("\n"));
+    const waUrl = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + message;
 
-      form.reset();
-      showMessage("Terima kasih! Maklumat penghantaran anda telah berjaya dihantar.", "success");
-    } catch (err) {
-      showMessage("Maaf, gagal menghantar borang. Sila cuba lagi.", "error");
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Hantar Maklumat";
-    }
+    window.location.href = waUrl;
   });
-
-  function showMessage(text, type) {
-    messageEl.textContent = text;
-    messageEl.className = "form-message" + (type ? " " + type : "");
-  }
 });

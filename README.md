@@ -1,84 +1,30 @@
 # Borang Penghantaran Barangan — Konsert INTEAM
 
 Landing page + borang untuk peminat isi alamat dan butiran penghantaran
-barangan/merchandise konsert INTEAM. Data borang dihantar terus ke Google Sheet.
+barangan/merchandise konsert INTEAM. Selepas borang diisi, maklumat terus
+dihantar sebagai mesej WhatsApp ke nombor yang diset.
 
 ## Struktur
 
 - `index.html` — landing page
 - `form.html` — borang penghantaran
 - `style.css` — styling
-- `script.js` — logik hantar borang
-- `config.js` — tempat letak URL Google Apps Script anda
-- `apps-script/Code.gs` — kod Apps Script untuk simpan data ke Google Sheet
+- `script.js` — logik borang, susun mesej & buka WhatsApp
+- `config.js` — nombor WhatsApp yang menerima mesej
 
-## Cara Setup Google Sheet (sekali sahaja)
+## Setup Nombor WhatsApp
 
-1. Buka [Google Sheets](https://sheets.google.com) dan cipta spreadsheet baharu,
-   contohnya namakan **"INTEAM Postage Submissions"**.
-2. Di dalam spreadsheet itu, buka **Extensions → Apps Script**.
-3. Padam kod default dalam editor, dan salin-tampal kandungan
-   `apps-script/Code.gs` (dalam repo ini) ke situ.
-4. Simpan (Ctrl+S / Cmd+S) projek Apps Script.
-5. Klik **Deploy → New deployment**.
-   - Klik ikon gear di sebelah "Select type" → pilih **Web app**.
-   - **Execute as:** Me
-   - **Who has access:** Anyone
-   - Klik **Deploy**, kemudian **Authorize access** dan benarkan permission
-     yang diminta (guna akaun Google anda).
-6. Selepas deploy, salin **Web app URL** yang diberikan (bermula dengan
-   `https://script.google.com/macros/s/.../exec`).
-7. Buka `config.js` dalam repo ini dan gantikan nilai
-   `PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE` dengan URL tersebut:
+Buka `config.js` dan tukar nilai `WHATSAPP_NUMBER` kepada nombor yang nak
+terima mesej, dalam format antarabangsa (kod negara, tanpa "+" atau "0" di
+depan):
 
-   ```js
-   const GOOGLE_SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycb.../exec";
-   ```
+```js
+const WHATSAPP_NUMBER = "60182889932";
+```
 
-8. Setiap kali borang dihantar, satu baris baharu akan ditambah dalam sheet
-   bernama **"Submissions"** di dalam spreadsheet anda, dengan lajur:
-   `submittedAt, fullName, phone, email, addressLine1, addressLine2, postcode,
-   city, state, itemDetails, quantity, orderRef, notes`.
-
-> **Nota:** Jika kod `Code.gs` diubah selepas deployment pertama, anda perlu
-> buat **Deploy → Manage deployments → Edit (pensel) → New version → Deploy**
-> supaya perubahan berkuatkuasa pada URL yang sama.
-
-### Setup Guna Telefon Sahaja (tiada laptop)
-
-App mobile Google Sheets tiada menu **Extensions**, jadi cara di atas tak
-boleh diikuti terus dalam app tu. Guna cara ini sebagai gantinya:
-
-1. Buka **Chrome** di telefon, taip terus **script.google.com** di address
-   bar (bukan sheets.google.com — domain ini tidak auto-redirect ke app).
-2. Log masuk dengan akaun Google anda, tap **+ New project**.
-3. Padam kod default, salin-tampal kandungan `apps-script/Code.gs`.
-4. Buka app Sheets, buka spreadsheet **"INTEAM Postage Submissions"**, tap
-   **Share → Copy link**. Salin ID dari URL tersebut (bahagian antara
-   `/d/` dan `/edit`), contoh:
-   `https://docs.google.com/spreadsheets/d/`**`1AbCxyz...`**`/edit`
-5. Dalam editor Apps Script, isikan ID tersebut ke pemboleh ubah
-   `SPREADSHEET_ID` di baris atas kod.
-6. Simpan, kemudian teruskan dari langkah 5 (Deploy → New deployment) di
-   atas seperti biasa.
-
-## Email Notification
-
-Setiap kali borang dihantar, satu emel notification akan dihantar ke alamat
-yang diset dalam `NOTIFY_EMAIL` di `apps-script/Code.gs` (kini diset ke
-`borhandynopos@gmail.com`), mengandungi semua butiran submission tersebut.
-
-Kalau `Code.gs` di dalam projek Apps Script anda dah lama (sebelum feature
-ni ditambah), kemaskan kod tu:
-
-1. Buka semula editor Apps Script anda (`script.google.com` → buka projek).
-2. Padam kod lama, salin-tampal kandungan terkini `apps-script/Code.gs`
-   dari repo ini.
-3. Simpan, kemudian **Deploy → Manage deployments → (klik pensel/edit
-   pada deployment sedia ada) → Version: New version → Deploy**.
-   (Guna URL Web App yang sama — tak perlu tukar `config.js`.)
-4. Kali pertama, Apps Script akan minta authorize permission tambahan
-   untuk hantar emel (`MailApp`) — benarkan.
+Bila borang dihantar, pengguna akan dibawa terus ke WhatsApp (app atau
+web.whatsapp.com) dengan mesej yang sudah diisi automatik berdasarkan
+jawapan dalam borang — mereka hanya perlu tekan **Hantar** dalam WhatsApp.
 
 ## Jalankan Secara Tempatan
 
@@ -94,5 +40,4 @@ Kemudian layari `http://localhost:8000`.
 ## Hosting
 
 Boleh host terus di GitHub Pages, Netlify, Vercel (static), atau mana-mana
-static hosting — tiada backend diperlukan kerana submission pergi terus ke
-Google Sheet melalui Apps Script.
+static hosting — tiada backend diperlukan.
